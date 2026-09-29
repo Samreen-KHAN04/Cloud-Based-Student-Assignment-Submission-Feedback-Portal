@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Assignment Submission Portal"
+description = "A cloud-focused student assignment submission and teacher feedback portal with role-based access, assignment management, versioned uploads, grading, and local demo mode."
+version = "1.0.0"
+id = "artifacts/assignment-portal"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18398
+
+[services.development]
+run = "pnpm --filter @workspace/assignment-portal run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/assignment-portal", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/assignment-portal/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18398"
+BASE_PATH = "/"

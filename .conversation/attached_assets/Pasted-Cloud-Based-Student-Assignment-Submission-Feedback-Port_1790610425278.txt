@@ -1,0 +1,1312 @@
+Cloud-Based Student Assignment Submission & Feedback Portal
+
+You are my senior full-stack engineer, cloud computing engineer, database engineer, DevOps engineer, security engineer, testing engineer, and technical mentor.
+
+I am a student building this as a Cloud Computing course project and GitHub portfolio project.
+
+I have provided a detailed project specification document. Treat that document as the primary source of requirements. Do not omit requirements from it.
+
+Your job is NOT to merely explain the project or give code snippets.
+
+Your job is to ACTUALLY BUILD THE COMPLETE WORKING PROJECT, create the complete source-code folder structure, implement the application, test it, and leave me with a project folder that I can download, run locally, understand, modify, push to GitHub, and later deploy to the cloud.
+
+1. PROJECT TITLE
+
+Build:
+
+Cloud-Based Student Assignment Submission & Feedback Portal
+
+The application should allow:
+
+STUDENT
+Register
+Login/logout
+View assigned courses
+View assignments
+View deadlines
+Upload assignments
+Resubmit assignments when permitted
+View submission history/version
+View submission status
+Download own submitted files
+View marks
+View teacher feedback
+TEACHER
+Login/logout
+Create assignments
+Update assignments
+Delete assignments
+Set deadlines
+Specify maximum marks
+Specify allowed file types
+Specify maximum file size
+View student submissions
+Download/view submissions
+Grade submissions
+Give written feedback
+View submission statistics
+Track late submissions
+
+Optional ADMIN functionality may be implemented if it does not unnecessarily complicate the core project.
+
+2. VERY IMPORTANT DEVELOPMENT PRINCIPLE
+
+Do NOT create a superficial CRUD website that only looks like a cloud project.
+
+The project must visibly demonstrate actual Cloud Computing concepts:
+
+Cloud authentication
+Role-based authorization
+Cloud database
+Cloud object/file storage
+REST APIs
+Client-server architecture
+Cloud deployment
+Environment variables
+Secrets management
+Security
+Scalability
+Logging
+Monitoring concepts
+Backup concepts
+CI/CD concepts
+Object storage
+Database separation
+Failure handling
+
+The project specification explicitly emphasizes that the main objective is to demonstrate cloud computing rather than merely creating a file-upload website.
+
+3. TECHNOLOGY STACK
+
+Use the following student-friendly architecture unless there is a strong technical reason to change it:
+
+Frontend
+
+React + Vite
+
+Use:
+
+React
+JavaScript
+HTML
+CSS
+
+Keep the UI professional but reasonably simple.
+
+Do NOT create an unnecessarily complicated frontend.
+
+Backend
+
+Python FastAPI.
+
+Use REST APIs for backend communication.
+
+Authentication
+
+Use Firebase Authentication.
+
+Support:
+
+Email/password authentication
+Login
+Registration
+Logout
+Authenticated sessions/tokens
+Database
+
+Use Firebase Firestore.
+
+Store structured metadata such as:
+
+users
+courses
+assignments
+submissions
+feedback
+analytics
+File Storage
+
+Use Firebase Cloud Storage.
+
+Actual uploaded files must NOT be stored as binary data inside Firestore.
+
+Firestore should store metadata and storage references.
+
+Cloud Functions
+
+Use Firebase Functions where appropriate for:
+
+deadline/late processing
+submission versioning
+analytics
+asynchronous processing
+Deployment
+
+Provide a realistic free/student-friendly deployment approach.
+
+Prefer:
+
+Firebase Hosting for frontend
+Firebase Functions for cloud functions
+Suitable free-tier hosting for FastAPI if required
+
+Also document how the architecture could map to AWS/Azure/GCP.
+
+4. LOCAL DEVELOPMENT MUST WORK WITHOUT PAID CLOUD SERVICES
+
+This is extremely important.
+
+I may not have access to paid cloud infrastructure.
+
+Therefore implement a local development/simulation mode.
+
+The application must be runnable locally.
+
+Provide:
+
+LOCAL MODE:
+
+Frontend:
+React/Vite
+
+Backend:
+FastAPI
+
+Local database:
+SQLite or an appropriate local development database
+
+Local file storage:
+local uploads directory
+
+CLOUD MODE:
+
+Firebase Authentication
+Firebase Firestore
+Firebase Storage
+Firebase Functions
+
+Create a clean abstraction layer so that cloud services and local development services are separated.
+
+For example:
+
+backend/
+services/
+auth_service.py
+database_service.py
+storage_service.py
+
+The application should make it clear which implementation is being used.
+
+Use environment variables such as:
+
+APP_MODE=local
+
+or
+
+APP_MODE=cloud
+
+Do not hardcode credentials.
+
+5. IMPORTANT: DO NOT MAKE THE CODE LOOK GENERIC OR OVERGENERATED
+
+The code should feel like a carefully developed student project.
+
+This means:
+
+consistent naming
+meaningful variable names
+simple architecture
+clear functions
+practical comments
+no unnecessary abstractions
+no hundreds of pointless utility files
+no fake enterprise architecture
+no excessive design patterns
+no meaningless comments
+no exaggerated claims
+no unnecessary AI-generated boilerplate
+
+Comments should explain important logic rather than every obvious line.
+
+Use straightforward implementation that a student can understand and explain during an interview.
+
+The UI should also look like a real student-built project rather than a generic AI dashboard template.
+
+Avoid:
+
+excessive gradients
+excessive animations
+fake statistics
+unnecessary charts
+meaningless AI terminology
+"AI-powered" labels where AI is not actually being used
+fake user activity
+fake cloud metrics
+
+Use realistic dummy data only.
+
+6. USER ROLES
+
+Implement:
+
+STUDENT
+
+Permissions:
+
+register
+login
+view courses
+view assignments
+upload assignment
+resubmit assignment
+view own submissions
+download own files
+view own marks
+view own feedback
+
+Student MUST NOT:
+
+access teacher dashboard
+create assignments
+grade submissions
+modify marks
+modify teacher feedback
+access another student's private submission
+TEACHER
+
+Permissions:
+
+login
+create assignments
+update assignments
+delete assignments
+set deadlines
+view submissions for authorized courses
+download submissions
+grade submissions
+provide feedback
+view statistics
+
+Teacher MUST NOT access unauthorized course/submission information.
+
+Implement actual authorization checks on the backend.
+
+Do NOT rely only on hiding buttons in React.
+
+7. DATABASE DESIGN
+
+Implement these entities.
+
+USERS
+
+Fields:
+
+user_id
+name
+email
+role
+created_at
+
+COURSES
+
+Fields:
+
+course_id
+course_name
+teacher_id
+created_at
+
+ASSIGNMENTS
+
+Fields:
+
+assignment_id
+course_id
+title
+description
+deadline
+max_marks
+created_by
+allowed_file_types
+max_file_size
+created_at
+
+SUBMISSIONS
+
+Fields:
+
+submission_id
+assignment_id
+student_id
+file_name
+file_url
+storage_path
+submitted_at
+submission_status
+version
+marks
+feedback
+graded_at
+
+Also maintain appropriate relationships.
+
+8. STORAGE STRUCTURE
+
+Use a logical structure such as:
+
+assignments/
+assignment_001/
+student_001/
+submission_v1.pdf
+submission_v2.pdf
+
+or an equivalent secure unique-ID based structure.
+
+Do not use filenames alone as identifiers.
+
+Use unique storage paths.
+
+Uploaded files should not automatically become publicly accessible.
+
+Implement authenticated access and document the production approach of private buckets + signed/temporary URLs.
+
+9. ASSIGNMENT MANAGEMENT
+
+Implement backend functions/API endpoints for:
+
+createAssignment()
+updateAssignment()
+deleteAssignment()
+getAssignments()
+getAssignmentById()
+
+Assignment fields:
+
+title
+description
+course
+deadline
+maximum marks
+allowed file types
+maximum file size
+
+Validate all inputs.
+
+Only authorized teachers can create/update/delete assignments.
+
+10. SUBMISSION WORKFLOW
+
+Implement:
+
+submitAssignment()
+getMySubmissions()
+downloadSubmission()
+resubmitAssignment()
+
+Workflow:
+
+Student selects assignment
+
+↓
+
+Selects file
+
+↓
+
+Frontend validates file
+
+↓
+
+Backend validates authentication
+
+↓
+
+Backend validates assignment
+
+↓
+
+Backend checks deadline
+
+↓
+
+Backend validates file extension
+
+↓
+
+Backend validates file size
+
+↓
+
+File uploaded to storage
+
+↓
+
+Storage reference generated
+
+↓
+
+Submission metadata saved
+
+↓
+
+Student receives confirmation
+
+Implement duplicate/resubmission protection.
+
+11. SUBMISSION STATUSES
+
+Use:
+
+NOT_SUBMITTED
+SUBMITTED
+LATE
+GRADED
+
+The system must correctly update statuses.
+
+12. DEADLINE LOGIC
+
+Use server-side timestamps.
+
+Do NOT trust the student's browser clock.
+
+Logic:
+
+if submitted_at <= deadline:
+
+SUBMITTED
+
+otherwise:
+
+LATE
+
+Make late submission behavior configurable.
+
+For example:
+
+ALLOW_LATE_SUBMISSIONS=true
+
+If false, reject submissions after deadline.
+
+Document timezone handling.
+
+13. VERSION HISTORY
+
+Implement submission versioning.
+
+Example:
+
+Version 1
+Version 2
+Version 3
+
+Each resubmission should create a separate stored file and metadata record.
+
+The student should be able to see previous versions.
+
+Teachers should be able to see the latest submission and version history.
+
+14. GRADING AND FEEDBACK
+
+Implement:
+
+gradeSubmission()
+getSubmissionFeedback()
+
+Teacher can:
+
+open submission
+download file
+enter marks
+enter written feedback
+submit grade
+
+Validation:
+
+marks cannot exceed maximum marks
+marks cannot be negative
+only authorized teacher can grade
+student cannot modify marks
+student cannot modify teacher feedback
+15. DASHBOARDS
+STUDENT DASHBOARD
+
+Display:
+
+Student name
+Total assignments
+Pending assignments
+Submitted assignments
+Late assignments
+Graded assignments
+Upcoming deadlines
+Recent feedback
+TEACHER DASHBOARD
+
+Display:
+
+Total assignments
+Total students
+Total submissions
+Pending reviews
+Late submissions
+Graded submissions
+Recent uploads
+Upcoming deadlines
+
+Do not fabricate statistics.
+
+All dashboard values must come from actual database records.
+
+16. REST API
+
+Implement APIs including:
+
+POST /api/register
+POST /api/login
+POST /api/logout
+
+POST /api/assignments
+GET /api/assignments
+GET /api/assignments/{id}
+PUT /api/assignments/{id}
+DELETE /api/assignments/{id}
+
+POST /api/assignments/{id}/submit
+GET /api/submissions/me
+GET /api/assignments/{id}/submissions
+GET /api/submissions/{id}
+
+POST /api/submissions/{id}/grade
+GET /api/submissions/{id}/feedback
+
+GET /api/submissions/{id}/download
+
+Add appropriate HTTP status codes.
+
+Use consistent JSON response structures.
+
+Implement meaningful error messages.
+
+Protect every sensitive endpoint.
+
+17. SECURITY
+
+Implement/document:
+
+authentication
+authorization
+RBAC
+password handling through Firebase Auth
+input validation
+file type validation
+file size validation
+CORS
+environment variables
+secrets management
+private file access
+secure storage rules
+rate limiting concept
+HTTPS in deployment
+encryption in transit
+encryption at rest through cloud providers
+audit logging concept
+backup concept
+malware scanning concept
+
+Never put:
+
+passwords
+API keys
+Firebase private credentials
+database credentials
+secret keys
+
+directly into source code.
+
+Create:
+
+.env.example
+
+with placeholders only.
+
+18. FAILURE HANDLING
+
+Handle:
+
+file upload failure
+database failure
+storage failure
+expired authentication token
+duplicate submission request
+internet interruption
+backend failure
+
+Show user-friendly errors.
+
+Implement reasonable retry behavior where appropriate.
+
+Explain idempotency for submission requests.
+
+Do not silently lose uploaded files or create duplicate submissions.
+
+19. PROJECT STRUCTURE
+
+Create a real folder structure approximately like this:
+
+Cloud-Based-Assignment-Submission-Portal/
+
+├── frontend/
+│ ├── src/
+│ ├── components/
+│ ├── pages/
+│ ├── services/
+│ ├── utils/
+│ └── ...
+│
+├── backend/
+│ ├── app.py
+│ ├── routes/
+│ ├── models/
+│ ├── services/
+│ ├── middleware/
+│ ├── utils/
+│ └── ...
+│
+├── cloud/
+│ ├── database_service.py
+│ ├── storage_service.py
+│ └── auth_service.py
+│
+├── functions/
+│ └── ...
+│
+├── tests/
+│
+├── sample_files/
+│
+├── screenshots/
+│
+├── docs/
+│
+├── reports/
+│
+├── README.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
+└── ...
+
+You may improve this structure if necessary, but keep it understandable.
+
+20. COMPLETE SOURCE CODE
+
+This is critical.
+
+DO NOT only show snippets in the chat.
+
+Actually create all source files inside the project workspace.
+
+Every required file must contain complete executable code.
+
+The project should contain:
+
+frontend source
+backend source
+API routes
+models
+database services
+authentication
+cloud storage
+assignment CRUD
+submission workflow
+deadline logic
+version history
+grading
+feedback
+dashboards
+validation
+error handling
+configuration
+tests
+requirements
+package configuration
+environment example
+Git ignore
+Firebase configuration templates
+cloud functions where required
+
+If a file is not needed, do not create an empty placeholder just to increase file count.
+
+21. DEMO DATA
+
+Create safe dummy data.
+
+Example:
+
+Teacher:
+teacher@example.com
+
+Student:
+student@example.com
+
+Course:
+Cloud Computing
+
+Assignment:
+Cloud Architecture Assignment
+
+Do NOT use real people's personal information.
+
+If Firebase authentication cannot automatically create these accounts, provide a seed/demo setup script or exact setup instructions.
+
+Never put actual passwords or secrets into Git.
+
+22. UI REQUIREMENTS
+
+Create a professional student-project UI.
+
+Pages:
+
+/login
+/register
+/student/dashboard
+/student/assignments
+/student/assignments/
+/student/submissions
+/student/feedback
+
+/teacher/dashboard
+/teacher/assignments
+/teacher/assignments/create
+/teacher/assignments/
+/teacher/submissions
+/teacher/submissions/
+
+Include:
+
+navigation
+logout
+loading states
+empty states
+validation messages
+success messages
+error messages
+responsive layout
+
+Make the UI consistent.
+
+Do not make it excessively flashy.
+
+23. TESTING
+
+Create automated backend tests.
+
+Test at minimum:
+
+Student registration
+Teacher login
+Invalid login
+Student dashboard authorization
+Teacher dashboard authorization
+Teacher creates assignment
+Student views assignment
+Valid PDF upload
+Invalid file extension
+Oversized file
+On-time submission
+Late submission
+Resubmission
+Student views own submission
+Student cannot view another student's submission
+Teacher views submissions
+Teacher grades submission
+Marks above maximum rejected
+Student views feedback
+Unauthorized grading rejected
+File retrieval
+Storage failure
+Database failure
+Logout
+Protected route after logout
+
+Create a clear test report.
+
+24. DOCUMENTATION
+
+Create:
+
+README.md
+
+Also create:
+
+docs/
+architecture.md
+database-design.md
+cloud-storage.md
+authentication.md
+api-documentation.md
+security.md
+scalability.md
+deployment.md
+testing.md
+local-setup.md
+
+Create:
+
+reports/
+project-report.md
+test-report.md
+
+The documentation must describe what the actual implementation does.
+
+Do not claim a feature is implemented if it is only theoretical.
+
+Clearly separate:
+
+IMPLEMENTED
+
+from:
+
+FUTURE/PRODUCTION EXTENSION
+
+25. CLOUD COMPUTING EXPLANATION
+
+Create documentation explaining where each concept appears:
+
+Cloud Computing
+SaaS
+PaaS
+IaaS
+Cloud Database
+Object Storage
+Authentication
+Authorization
+RBAC
+REST API
+Client-server architecture
+Serverless computing
+Scalability
+Elasticity
+Availability
+Load balancing
+CDN
+API Gateway
+Environment variables
+Secrets management
+Logging
+Monitoring
+Backup
+CI/CD
+Cloud deployment
+
+Do not falsely claim that a service is being used if it is only described as a future architecture.
+
+26. ARCHITECTURE
+
+Create a professional architecture diagram/document.
+
+Basic architecture:
+
+Student / Teacher
+|
+v
+React Web Application
+|
+v
+Authentication
+|
+v
+REST API
+|
+v
+FastAPI Backend
+/
+/
+Firestore Cloud Storage
+|
+v
+Logging / Monitoring
+
+Also document the advanced architecture:
+
+Users
+|
+CDN
+|
+Frontend Hosting
+|
+API Gateway
+|
+Backend / Serverless Functions
+|
+Managed Database + Object Storage
+|
+Monitoring / Logging
+
+Clearly label which architecture is actually implemented and which is an advanced deployment architecture.
+
+27. README
+
+Generate a complete professional README containing:
+
+Cloud-Based Student Assignment Submission & Feedback Portal
+Overview
+Problem Statement
+Objectives
+Features
+User Roles
+Cloud Computing Concepts
+Architecture
+Technology Stack
+Database Design
+Cloud Storage
+Authentication & Authorization
+Assignment Workflow
+Submission Workflow
+Version History
+Feedback & Grading
+REST APIs
+Folder Structure
+Installation
+Environment Variables
+Local Setup
+Running the Application
+Testing
+Cloud Deployment
+Security
+Scalability
+Failure Handling
+Screenshots
+Results
+Limitations
+Future Improvements
+Learning Outcomes
+Author
+28. GITHUB READINESS
+
+Prepare the project for GitHub.
+
+Repository name:
+
+Cloud-Based-Assignment-Submission-Portal
+
+Suggested topics:
+
+cloud-computing
+edtech
+python
+fastapi
+react
+firebase
+cloud-storage
+database
+rest-api
+full-stack
+authentication
+
+Create a useful .gitignore.
+
+Make absolutely sure that:
+
+.env is ignored
+secrets are ignored
+service-account files are ignored
+node_modules is ignored
+Python cache is ignored
+virtual environments are ignored
+29. GIT COMMIT PLAN
+
+Provide a recommended development history:
+
+Initialize cloud assignment portal
+Create frontend and backend architecture
+Implement authentication and role management
+Add assignment management module
+Integrate cloud database
+Implement cloud file storage
+Add student assignment submission workflow
+Implement deadline validation
+Add teacher grading and feedback
+Build student and teacher dashboards
+Add security and authorization
+Add automated tests
+Deploy application to cloud
+Complete README and documentation
+
+Also give the exact Git commands for each stage.
+
+IMPORTANT:
+
+Do not fake Git history.
+
+The commands should allow me to create the history myself as I actually build the project.
+
+30. SCREENSHOT CHECKLIST
+
+Create a documentation checklist for:
+
+01_project_folder_structure.png
+02_architecture_diagram.png
+03_login_page.png
+04_student_registration.png
+05_teacher_dashboard.png
+06_assignment_creation.png
+07_student_dashboard.png
+08_assignment_list.png
+09_assignment_details.png
+10_file_selection.png
+11_successful_upload.png
+12_cloud_storage_file.png
+13_database_submission_record.png
+14_on_time_submission.png
+15_late_submission.png
+16_teacher_submission_list.png
+17_teacher_review.png
+18_marks_feedback.png
+19_student_feedback.png
+20_authorization_error.png
+21_api_response.png
+22_automated_tests.png
+23_cloud_deployment.png
+24_live_application.png
+25_github_commits.png
+26_github_repository.png
+27_readme_preview.png
+
+For every screenshot explain:
+
+what to capture
+where to capture it
+what it proves
+31. LOCAL SETUP
+
+Create exact Windows-friendly commands.
+
+I primarily use Windows and PowerShell.
+
+Give commands such as:
+
+python -m venv venv
+
+.\venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+
+npm install
+
+etc.
+
+Make sure commands are correct for PowerShell.
+
+Explain how to start:
+
+Backend
+
+Frontend
+
+Cloud emulator/local simulation if applicable.
+
+Provide expected outputs.
+
+32. CLOUD DEPLOYMENT
+
+Provide a practical student-friendly cloud deployment path.
+
+Document:
+
+Frontend deployment
+Backend deployment
+Firebase Authentication
+Firestore
+Firebase Storage
+Cloud Functions
+
+Also document an AWS/Azure/GCP equivalent architecture.
+
+For AWS explain conceptual mapping such as:
+
+Frontend → S3/CloudFront
+Backend → Lambda/App Runner/EC2
+API → API Gateway
+Database → DynamoDB/RDS
+Files → S3
+Authentication → Cognito
+Logs → CloudWatch
+
+Do not require me to actually pay for these services.
+
+33. OPTIONAL ML EXTENSION
+
+The project document mentions an optional ML component.
+
+Do NOT make ML the core requirement.
+
+If implemented, add it as a clearly separated optional module.
+
+Possible extension:
+
+Plagiarism similarity:
+
+Sentence-BERT embeddings + cosine similarity.
+
+Optional baseline grading:
+
+TF-IDF + Ridge Regression.
+
+If these are implemented, clearly label them as:
+
+"AI-assisted feature"
+
+and make clear that teacher grading remains the final decision.
+
+Do not claim AI features exist unless they are actually implemented and tested.
+
+34. IMPORTANT: AVOID FAKE IMPLEMENTATION
+
+This rule is extremely important.
+
+Never write:
+
+"Cloud database integrated"
+
+if the code only uses SQLite.
+
+Never write:
+
+"Firebase authentication implemented"
+
+if it is only a placeholder.
+
+Never write:
+
+"Cloud deployment complete"
+
+if it has not actually been deployed.
+
+Never write:
+
+"AI plagiarism detection"
+
+if no working plagiarism module exists.
+
+Instead document the exact implementation status.
+
+Use labels:
+
+IMPLEMENTED
+LOCAL SIMULATION
+OPTIONAL
+FUTURE EXTENSION
+
+35. BEGINNER-FRIENDLY CODE
+
+I need to be able to explain this project in an interview.
+
+Therefore:
+
+prefer simple functions
+avoid unnecessary metaprogramming
+avoid obscure libraries
+explain important cloud decisions
+use descriptive names
+keep modules reasonably small
+include useful comments
+document why a component exists
+
+The code should be something an IT engineering graduate can realistically understand and maintain.
+
+36. FINAL DELIVERABLE
+
+At the end, DO NOT just give me a huge chat response.
+
+Actually create the project files in the workspace.
+
+I need a complete project folder:
+
+Cloud-Based-Assignment-Submission-Portal/
+
+with all source code.
+
+Then provide:
+
+A final folder tree
+How to run it
+Default/local demo credentials if safely generated
+What features are actually implemented
+What features require Firebase/cloud configuration
+What screenshots I should capture
+What I should understand before presenting it
+Git commands
+Deployment instructions
+Any remaining configuration steps
+
+MOST IMPORTANT:
+
+Give me the ability to download/export the entire project folder with the code, not just individual snippets.
+
+If the platform supports ZIP export, create a ZIP-ready project.
+
+37. SELF-CHECK BEFORE FINISHING
+
+Before declaring the project complete, inspect the project yourself.
+
+Check:
+
+[ ] Frontend builds
+[ ] Backend starts
+[ ] APIs start
+[ ] Authentication flow exists
+[ ] Student role exists
+[ ] Teacher role exists
+[ ] Authorization is enforced server-side
+[ ] Assignment CRUD works
+[ ] File upload works
+[ ] File validation works
+[ ] Deadline logic works
+[ ] Late submission works
+[ ] Resubmission/versioning works
+[ ] Teacher grading works
+[ ] Feedback works
+[ ] Student dashboard works
+[ ] Teacher dashboard works
+[ ] Error handling exists
+[ ] Tests exist
+[ ] README exists
+[ ] .env.example exists
+[ ] .gitignore exists
+[ ] No secrets are committed
+[ ] Local mode works
+[ ] Cloud mode configuration is documented
+[ ] Project structure is clean
+[ ] Documentation matches implementation
+
+Fix errors you discover before finishing.
+
+Do not tell me "this should work."
+
+Actually verify as much as the environment allows.
+
+38. FINAL PROJECT STANDARD
+
+The finished result should be:
+
+complete
+executable
+modular
+beginner-friendly
+technically defensible
+cloud-focused
+GitHub-ready
+placement/interview-ready
+documented
+testable
+secure by design
+visually professional
+based on the supplied project specification
+
+Do not sacrifice correctness just to make the project look impressive.
+
+The goal is a project that I can genuinely run, inspect, learn, explain, demonstrate, and continue developing myself.
+
+START BUILDING THE PROJECT NOW.

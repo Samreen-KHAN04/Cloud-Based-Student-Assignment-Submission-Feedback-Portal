@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "RjRNNC-haSTa5otjEtzLV"
+uri = "file://Cloud-Based-Assignment-Submission-Portal.zip"
+type = "unspecified"
+title = "Updated Windows-compatible project source"
+description = "Updated source archive with a cross-platform install hook for PowerShell and VS Code."
+logical_id = "6fa47c9f-e0fe-454c-aff9-69bbced7e50f"
+content_hash = "sha256:416ef9804be72b3147c9fa98b5bdeb919acaf774e27034c8d74133d19110542f"
+size = 2279746
+mtime_ms = 1790612121093
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:0489b3ed-cdea-4672-9834-a036558a5802/6fa47c9f-e0fe-454c-aff9-69bbced7e50f/326bf442-747d-4169-8f94-304f1acf3fdd"
+storage_version_token = "1790612131950685"
+content_type = "application/octet-stream"
